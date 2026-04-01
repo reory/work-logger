@@ -54,7 +54,7 @@ information in a relational database (SQL) and generates visual performance repo
 
 </details>
 
-# 1. Setup the Environment
+# Setup the Environment
 - Ensure your virtual environment is active and libraries are installed:
 
 ```Bash
