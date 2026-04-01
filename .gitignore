@@ -1,0 +1,20 @@
+# Python Specific
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Database
+*.db
+
+~$*.xlsx
+Work_Logger_Frontend.xlsx
+
+# OS Specific
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+pipeline.log
