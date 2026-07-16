@@ -17,7 +17,7 @@ information in a relational database (SQL) and generates visual performance repo
 
 ---
 
-# 📸 Screenshots
+## 📸 Screenshots
 ![Excel Worksheet](screenshots/excel.png)
 ![Data Visualisation](screenshots/work_report.png)
 
@@ -54,7 +54,7 @@ information in a relational database (SQL) and generates visual performance repo
 
 </details>
 
-# Setup the Environment
+## Setup the Environment
 - Ensure your virtual environment is active and libraries are installed:
 
 ```Bash
@@ -62,19 +62,19 @@ information in a relational database (SQL) and generates visual performance repo
 .\venv\Scripts\activate
 ```
 
-# Install dependencies
+## Install dependencies
 ```Bash
 pip install pandas sqlalchemy openpyxl matplotlib
 ```
 
-## Prepare the Data
+### Prepare the Data
 - Open Work_Logger_Frontend.xlsx in the Excel Desktop App.
 
 - Ensure you have columns for id, name, Hours, and Date.
 
 - Enter your work logs, Save, and Close Excel (Crucial to avoid Permission Errors).
 
-## Sync to Database
+### Sync to Database
 - Run the sync script (sync_data.py) to move your Excel rows into the SQL database:
 
 ```Bash
@@ -82,14 +82,14 @@ python sync_data.py
 ```
 - Check for the success message: 🚀 Success! Synced X rows to SQL.
 
-## Verify (Optional)
+### Verify (Optional)
 - If you want to see the raw data sitting inside the SQL table:
 
 ```Bash
 python check_db.py
 ```
 
-## Generate the Visual Report
+### Generate the Visual Report
 - Create the stacked bar chart to analyze the hours:
 
 ```Bash
@@ -110,21 +110,22 @@ python generate_report.py
 
 ---
 
-# 📁 Project Structure
-```
-data_analysis/
-├── venv/                           # Python Virtual Environment
-├── models.py                       # Database architecture (The Blueprint)
-├── sync_data.py                    # Excel-to-SQL bridge (The Worker)
-├── generate_report.py              # Chart generator (The Visualizer)
-├── check_db.py                     # Database inspector (The Auditor)
-├── work_logger.db                  # The SQLite database file (Auto-generated)
-└── Work_Logger_Frontend.xlsx       # The Excel entry sheet
+## 📁 Project Structure
+```plaintext
+work-logger/
+├── venv/                        # Python Virtual Environment
+├── tests/                       # Pytest suite 
+├── src/
+|   ├── app.py                   # Generation & Initialization engine
+|   ├── models.py                # Database architecture (The Blueprint)
+|   ├── sync_data.py             # Excel-to-SQL bridge (The Worker)
+|   ├── generate_report.py       # Chart generator (The Visualizer)
+|   ├── check_db.py              # Database inspector (The Auditor)
 ```
 
 ---
 
-# 🖥️ Tech Stack: 
+## 🖥️ Tech Stack: 
 - Python
 - Faker
 - SQLite (via SQLAlchemy ORM)
@@ -134,24 +135,32 @@ data_analysis/
 
 ---
 
-# 🛣️ Roadmap Features
-- [ ] Automated Email Reports
-Integrate a Python mail library (like smtplib) to automatically email the work_report.png graph to a manager every Friday afternoon.
+## 🛣️ Roadmap Features
 
-- [ ] Interactive Web Dashboard
-Move the project from static Matplotlib images to an interactive web app using Streamlit, allowing users to filter by employee or date range in a browser.
+- [ ] Automated Email Reports: Send weekly SQL data and work_report.png to managers every Friday using smtplib.
 
-- [ ] Cloud Deployment
-Migrate the local SQLite database to a cloud database (like PostgreSQL) so multiple people can log hours from different computers at the same time.
+- [ ] Interactive Web Dashboard: Build a Streamlit web app to dynamically filter and view `SQLite` work data in a browser.
+
+- [ ] Advanced Excel Data Validation: Embed input restriction rules (hours, dates) directly inside the generated template.
+
+- [ ] Error Notification Slack Bot: Send immediate pipeline failure alerts and traceback logs directly to a `Slack` webhook.
+
+- [ ] Cloud Database Migration: Transition backend to hosted cloud `PostgreSQL` to support concurrent multi-user logging.
+
+- [ ] Secure Env Var Management: Use `python-dotenv` to pull sensitive database credentials out of your code.
+
+- [ ] Overtime & Department Analytics: Upgrade report engine to calculate operational costs and flag hours over 40/week.
+
+- [ ] Scheduled Automated Extraction: Use Cron or Windows Task Scheduler to automatically run sync_data.py at midnight.
 
 ---
 
-# 📑 Notes
+## 📑 Notes
 End-to-End ETL Pipeline: 
 - Extracted data from Excel, 
 - Transformed it using Python/Pandas, and 
 - Loaded it into a Relational Database (SQL).
 
---
+---
 
 * **Built by Roy Peters**  😁[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/roy-p-74980b382/)

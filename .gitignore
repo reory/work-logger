@@ -1,20 +1,22 @@
-# Python Specific
-__pycache__/
-*.py[cod]
-*$py.class
+# Virtual Environment
 venv/
-.env
+.venv/
 
-# Database
+# Testing & Coverage
+.pytest_cache/
+.hypothesis/
+.coverage
+htmlcov/
+
+# Local Database & Generated Reports
 *.db
-
-~$*.xlsx
+work_report.png
 Work_Logger_Frontend.xlsx
 
-# OS Specific
-.DS_Store
-Thumbs.db
+# Python bytecode
+__pycache__/
+*.pyc
 
-# Logs
+# Logs  
 *.log
 pipeline.log
