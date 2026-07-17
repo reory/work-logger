@@ -64,7 +64,7 @@ information in a relational database (SQL) and generates visual performance repo
 
 ## Install dependencies
 ```Bash
-pip install pandas sqlalchemy openpyxl matplotlib
+pip install -r requirements.txt   
 ```
 
 ### Prepare the Data
