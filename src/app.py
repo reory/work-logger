@@ -18,7 +18,7 @@ def initialise_project():
     # Ensure the database tables are created
     Base.metadata.create_all(engine)
     
-    # Check if we already have employees to avoid duplicate seeding
+    # Check if db already have employees to avoid duplicate seeding
     existing_count = session.query(Employee).count()
     if existing_count > 0:
         logger.info(
