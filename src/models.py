@@ -2,13 +2,14 @@
 # ensuring data remains organized, consistent, and easy for other scripts to access.
 
 import logging
+
 from sqlalchemy import (
-    create_engine,
     Column,
-    Integer,
-    String,
     Float,
     ForeignKey,
+    Integer,
+    String,
+    create_engine,
 )
 from sqlalchemy.orm import declarative_base, sessionmaker
 
@@ -30,6 +31,8 @@ session = Session()
 
 
 class Employee(Base):
+    """SQLAlchemy model representing an employee record in the database."""
+
     __tablename__ = "employees"
     id = Column(Integer, primary_key=True)
     name = Column(String)
@@ -37,6 +40,8 @@ class Employee(Base):
 
 
 class WorkLog(Base):
+    """SQLAlchemy model representing an individual work log entry."""
+    
     __tablename__ = "work_logs"
     id = Column(Integer, primary_key=True)
     employee_id = Column(Integer, ForeignKey("employees.id"))

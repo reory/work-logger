@@ -1,15 +1,17 @@
 # tests/test_logger.py
 import os
-import pytest #noqa
-from hypothesis import given, strategies as st
+
+import pytest  #noqa
+from hypothesis import given
+from hypothesis import strategies as st
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-# Import codebase modules
-from models import Employee, WorkLog, Base
-from sync_data import sync_excel_to_sql
+from app import initialise_project
 from generate_report import generate_summary_report
-from app import initialize_project
+from models import Base, Employee, WorkLog
+from sync_data import sync_excel_to_sql
+
 
 # Standard Employee Creation Test
 def test_create_employee(db_session):
@@ -91,7 +93,7 @@ def test_generate_summary_report(db_session):
             os.remove(report_file)
 
 # Test app.py initialization
-def test_initialize_project():
+def test_initialise_project():
     """Test that app.py seeds employees and exports starter template."""
 
     excel_file = "Work_Logger_Frontend.xlsx"
@@ -100,7 +102,7 @@ def test_initialize_project():
         os.remove(excel_file)
         
     try:
-        initialize_project()
+        initialise_project()
         assert os.path.exists(excel_file)
     finally:
         if os.path.exists(excel_file):

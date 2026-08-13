@@ -6,9 +6,11 @@ and exports the starter Work_Logger_Frontend.xlsx template.
 
 import pandas as pd
 from faker import Faker
-from models import logger, session, engine, Employee, Base
 
-def initialize_project():
+from models import Base, Employee, engine, logger, session
+
+
+def initialise_project():
     """Seed the database with mock employees and generate the Excel template."""
 
     fake = Faker()
@@ -66,4 +68,4 @@ def initialize_project():
     session.close()
 
 if __name__ == "__main__":
-    initialize_project()
+    initialise_project()

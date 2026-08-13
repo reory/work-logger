@@ -1,12 +1,16 @@
 # Visualization engine that transforms raw SQL data
 # into a professional bar chart to show work trends at a glance.
 
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
+from sqlalchemy.exc import SQLAlchemyError
+
 from models import engine
+
 
 def generate_summary_report():
     """Queries the database and generates a stacked bar chart of work hours."""
+    
     try:
         # Pull the data including the Date
         query = (
@@ -58,8 +62,8 @@ def generate_summary_report():
         plt.close()
         print("📅 Date-based graph generated! Check 'work_report.png'")
 
-    except Exception as e:
-        print(f"❌ Failed to generate report: {str(e)}")
+    except (SQLAlchemyError, pd.errors.DatabaseError, OSError, ValueError, KeyError) as e:
+        print(f"❌ Failed to generate report: {e!s}")
 
 # This ensures it ONLY runs when you execute the script directly, 
 # not during test collection!

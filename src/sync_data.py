@@ -2,7 +2,8 @@
 # cleans the formatting, and saves them into the SQL database as permanent records.
 
 import pandas as pd
-from models import logger, session, WorkLog
+
+from models import WorkLog, logger, session
 
 
 def sync_excel_to_sql():
@@ -40,8 +41,9 @@ def sync_excel_to_sql():
 
     except Exception as e:
         # Add a catch-all for unexpected crashes
-        logger.critical(f"🧨 Pipeline crashed! {str(e)}")
+        logger.critical(f"🧨 Pipeline crashed! {e!s}")
         session.rollback()
+        raise
     finally:
         session.close()
 

@@ -1,9 +1,19 @@
 import os
-import pytest
+import sys
+from pathlib import Path
+
 import pandas as pd
+import pytest
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
+sys.path.insert(0, str(PROJECT_ROOT / "src"))
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
 from models import Base
+
 
 @pytest.fixture(scope="function")
 def db_session():
