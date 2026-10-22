@@ -19,7 +19,7 @@ information in a relational database (SQL) and generates visual performance repo
 
 ## 📸 Screenshots
 ![Excel Worksheet](screenshots/excel.png)
-![Data Visualisation](screenshots/work_report.png)
+![Data Visualisation](screenshots/work_report1.png)
 
 ---
 <details>
