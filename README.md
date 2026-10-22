@@ -97,6 +97,22 @@ python src/generate_report.py
 ```
 - This will pop up a window with your graph and save a file named work_report.png.
 
+---
+
+### Advanced / Custom File Paths (CLI Arguments)
+Both initialization and sync scripts support custom file paths using the `--file` (or `-f`) flag:
+
+```bash
+# Generate starter template with a custom filename
+python src/app.py --file branch_data.xlsx
+```
+# Sync data from a custom filename
+```bash
+python src/sync_data.py --file branch_data.xlsx
+```
+
+---
+
 <details>
   <summary>⚠️ Common Troubleshooting</summary>
 
@@ -121,6 +137,7 @@ work-logger/
 |   ├── sync_data.py             # Excel-to-SQL bridge (The Worker)
 |   ├── generate_report.py       # Chart generator (The Visualizer)
 |   ├── check_db.py              # Database inspector (The Auditor)
+├── README.md                    # Professional 
 ```
 
 ---
@@ -139,11 +156,11 @@ work-logger/
 
 - [x] Secure Env Var Management: Use `python-dotenv` to pull sensitive database credentials out of your code.
 
-- [ ] CLI Argument Parser: Upgrade scripts with `argparse` to support custom file paths and database connections via the command line.
+- [x] CLI Argument Parser: Upgrade scripts with `argparse` to support custom file paths and database connections via the command line.
 
-- [ ] Audit Logging Table: Add an `audit_logs` tracking table in SQLite to record execution timestamps, status, and row counts for every sync run.
+- [x] Audit Logging Table: Add an `audit_logs` tracking table in SQLite to record execution timestamps, status, and row counts for every sync run.
 
-- [ ] Statistical Anomaly Detection: Implement a Pandas validation rule to automatically flag extreme work-hour entries (e.g., shifts > 16 hours).
+- [ ] Statistical Anomaly Detection: Implement a Pandas validation rule to automatically flag extreme work-hour entries (e.g., shifts > 50 hours).
 
 - [ ] Automated Unit Testing: Expand the `tests/` directory with `pytest` to validate data cleaning, header sanitization, and SQL insertion logic.
 

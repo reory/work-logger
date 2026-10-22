@@ -99,9 +99,9 @@ def generate_summary_report():
         plt.tight_layout()
 
         # Save
-        plt.savefig("work_report.png", dpi=300)
+        plt.savefig("work_report1.png", dpi=300)
         plt.close()
-        print("📅 Date-based graph generated! Check 'work_report.png'")
+        print("📅 Date-based graph generated! Check 'work_report1.png'")
 
     except (SQLAlchemyError, pd.errors.DatabaseError, OSError, ValueError, KeyError) as e:
         print(f"❌ Failed to generate report: {e!s}")

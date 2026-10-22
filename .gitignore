@@ -11,7 +11,7 @@ htmlcov/
 
 # Local Database & Generated Reports
 *.db
-work_report.png
+work_report1.png
 Work_Logger_Frontend.xlsx
 
 # Python bytecode

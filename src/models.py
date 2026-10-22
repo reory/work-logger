@@ -5,6 +5,7 @@ ensuring data remains organized, consistent, and easy for other scripts to acces
 
 import logging
 import os
+from datetime import datetime, timezone
 
 from dotenv import load_dotenv
 from sqlalchemy import (
@@ -56,6 +57,16 @@ class WorkLog(Base):
     employee_id = Column(Integer, ForeignKey("employees.id"))
     hours = Column(Float)
     date = Column(String)
+
+class AuditLog(Base):
+    """SQLAlchemy model representing pipeline execution audit records."""
+
+    __tablename__ = "audit_logs"
+    id = Column(Integer, primary_key=True)
+    timestamp = Column(String, default=lambda: datetime.now(timezone.utc).isoformat())
+    file_path = Column(String)
+    status = Column(String) # A Success or Failure Column
+    rows_processed = Column(Integer, default=0)
 
 
 # Create tables

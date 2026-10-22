@@ -4,13 +4,15 @@ Uses the Faker library to seed the database with mock employees
 and exports the starter Work_Logger_Frontend.xlsx template.
 """
 
+import argparse
+
 import pandas as pd
 from faker import Faker
 
 from models import Base, Employee, engine, logger, session
 
 
-def initialise_project():
+def initialise_project(excel_path: str = "Work_Logger_Frontend.xlsx"):
     """Seed the database with mock employees and generate the Excel template."""
 
     fake = Faker()
@@ -48,9 +50,6 @@ def initialise_project():
         session.add_all(employees_to_add)
         session.commit()
         logger.info("✅ Successfully seeded 50 employees!")
-
-    # Generate the starter Excel frontend template
-    excel_path = "Work_Logger_Frontend.xlsx"
     
     # Query all employees out of the DB to populate the Excel sheet template
     employees = session.query(Employee).all()
@@ -68,4 +67,16 @@ def initialise_project():
     session.close()
 
 if __name__ == "__main__":
-    initialise_project()
+    parser = argparse.ArgumentParser(
+        description="Initialize project database and generate " 
+                    "the starter Excel frontend template."
+    )
+    parser.add_argument(
+        "--file", "-f",
+        type=str,
+        default="Work_Logger_Frontend.xlsx",
+        help="Path where the starter Excel template should be saved (default: Work_Logger_Frontend.xlsx)"
+    )
+    args = parser.parse_args()
+
+    initialise_project(excel_path=args.file)
