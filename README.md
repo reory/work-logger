@@ -78,7 +78,7 @@ pip install -r requirements.txt
 - Run the sync script (sync_data.py) to move your Excel rows into the SQL database:
 
 ```Bash
-python sync_data.py
+python src/sync_data.py
 ```
 - Check for the success message: 🚀 Success! Synced X rows to SQL.
 
@@ -93,7 +93,7 @@ python check_db.py
 - Create the stacked bar chart to analyze the hours:
 
 ```Bash
-python generate_report.py
+python src/generate_report.py
 ```
 - This will pop up a window with your graph and save a file named work_report.png.
 
@@ -137,21 +137,33 @@ work-logger/
 
 ## 🛣️ Roadmap Features
 
-- [ ] Automated Email Reports: Send weekly SQL data and work_report.png to managers every Friday using smtplib.
+- [x] Secure Env Var Management: Use `python-dotenv` to pull sensitive database credentials out of your code.
 
-- [ ] Interactive Web Dashboard: Build a Streamlit web app to dynamically filter and view `SQLite` work data in a browser.
+- [ ] CLI Argument Parser: Upgrade scripts with `argparse` to support custom file paths and database connections via the command line.
 
-- [ ] Advanced Excel Data Validation: Embed input restriction rules (hours, dates) directly inside the generated template.
+- [ ] Audit Logging Table: Add an `audit_logs` tracking table in SQLite to record execution timestamps, status, and row counts for every sync run.
 
-- [ ] Error Notification Slack Bot: Send immediate pipeline failure alerts and traceback logs directly to a `Slack` webhook.
+- [ ] Statistical Anomaly Detection: Implement a Pandas validation rule to automatically flag extreme work-hour entries (e.g., shifts > 16 hours).
 
-- [ ] Cloud Database Migration: Transition backend to hosted cloud `PostgreSQL` to support concurrent multi-user logging.
-
-- [ ] Secure Env Var Management: Use `python-dotenv` to pull sensitive database credentials out of your code.
+- [ ] Automated Unit Testing: Expand the `tests/` directory with `pytest` to validate data cleaning, header sanitization, and SQL insertion logic.
 
 - [ ] Overtime & Department Analytics: Upgrade report engine to calculate operational costs and flag hours over 40/week.
 
 - [ ] Scheduled Automated Extraction: Use Cron or Windows Task Scheduler to automatically run sync_data.py at midnight.
+
+- [ ] Advanced Excel Data Validation: Embed input restriction rules (hours, dates) directly inside the generated template.
+
+- [ ] Automated Email Reports: Send weekly SQL data and work_report.png to managers every Friday using smtplib.
+
+- [ ] Error Notification Slack Bot: Send immediate pipeline failure alerts and traceback logs directly to a `Slack` webhook.
+
+- [ ] PDF Executive Report Generator: Extend the reporting module to export structured analytics summaries and charts into a professional PDF document.
+
+- [ ] Interactive Web Dashboard: Build a Streamlit web app to dynamically filter and view `SQLite` work data in a browser.
+
+- [ ] Cloud Database Migration: Transition backend to hosted cloud `PostgreSQL` to support concurrent multi-user logging.
+
+- [ ] Docker Containerization: Package the pipeline and dependencies using `Docker` and `Docker` Compose for seamless cross-platform deployment.
 
 ---
 

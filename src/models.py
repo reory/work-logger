@@ -1,8 +1,12 @@
-# Defines SQL database structure as Python classes,
-# ensuring data remains organized, consistent, and easy for other scripts to access.
+"""
+Defines SQL database structure as Python classes,
+ensuring data remains organized, consistent, and easy for other scripts to access.
+"""
 
 import logging
+import os
 
+from dotenv import load_dotenv
 from sqlalchemy import (
     Column,
     Float,
@@ -12,6 +16,8 @@ from sqlalchemy import (
     create_engine,
 )
 from sqlalchemy.orm import declarative_base, sessionmaker
+
+load_dotenv()
 
 # Log the project pipeline
 logging.basicConfig(
@@ -25,7 +31,10 @@ logging.basicConfig(
 logger = logging.getLogger("WorkLogger")
 
 Base = declarative_base()
-engine = create_engine("sqlite:///work_logger.db")
+
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite://worklogger.db")
+engine = create_engine(DATABASE_URL)
+
 Session = sessionmaker(bind=engine)
 session = Session()
 

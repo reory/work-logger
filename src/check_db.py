@@ -1,5 +1,7 @@
-# This file is the verification tool that pulls data directly from SQL
-# to the terminal so you can prove the Excel records were successfully saved.
+"""
+This file is the verification tool that pulls data directly from SQL
+to the terminal so you can prove the Excel records were successfully saved.
+"""
 
 import pandas as pd
 

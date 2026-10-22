@@ -1,5 +1,7 @@
-# Acts as the bridge that reads manual Excel entries,
-# cleans the formatting, and saves them into the SQL database as permanent records.
+"""
+Acts as the bridge that reads manual Excel entries,
+cleans the formatting, and saves them into the SQL database as permanent records.
+"""
 
 import pandas as pd
 
