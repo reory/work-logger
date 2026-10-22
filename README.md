@@ -22,6 +22,16 @@ information in a relational database (SQL) and generates visual performance repo
 ![Data Visualisation](screenshots/report1.png)
 
 ---
+
+## 📊 Data Reconciliation: Frontend vs. Report
+
+If you notice a discrepancy above between the raw input table (`Work_Logger_Frontend.xlsx`) and the generated visualization (`work_report1.png`), this is intentional. The discrepancy is due to the ETL pipeline's **Automated Anomaly Detection** gate (`sync_data.py`):
+
+* **Raw Frontend Data (`.xlsx`)**: Retains all raw entries submitted by users, which may include data entry errors or invalid outliers (e.g., negative shifts like `-1.0` or extreme hours like `26.0`).
+* **Sanitized Report (`work_report1.png`)**: During ingestion, the ETL script automatically flags and drops any records falling outside normal operating parameters (**strict limits: 0 to 12 hours**). Only validated rows are committed to the SQLite database and rendered in charts.
+
+---
+
 <details>
   <summary>🔎 The Data Pipeline (Step-by-Step)</summary>
 
@@ -161,8 +171,6 @@ work-logger/
 - [x] Audit Logging Table: Add an `audit_logs` tracking table in SQLite to record execution timestamps, status, and row counts for every sync run.
 
 - [x] Statistical Anomaly Detection: Implement a Pandas validation rule to automatically flag extreme work-hour entries (e.g., shifts > 12 hours).
-
-- [ ] Automated Unit Testing: Expand the `tests/` directory with `pytest` to validate data cleaning, header sanitization, and SQL insertion logic.
 
 - [ ] Overtime & Department Analytics: Upgrade report engine to calculate operational costs and flag hours over 40/week.
 
