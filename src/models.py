@@ -33,7 +33,7 @@ logger = logging.getLogger("WorkLogger")
 
 Base = declarative_base()
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite://worklogger.db")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///worklogger.db")
 engine = create_engine(DATABASE_URL)
 
 Session = sessionmaker(bind=engine)

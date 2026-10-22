@@ -19,7 +19,7 @@ def sync_excel_to_sql(file_path: str = "Work_Logger_Frontend.xlsx"):
     """
 
     try:
-        df = pd.read_excel("Work_Logger_Frontend.xlsx")
+        df = pd.read_excel(file_path)
 
         # Log file was opened successfully
         logger.info(f"Opened Excel file: '{file_path}': {len(df)} rows detected")
@@ -41,12 +41,35 @@ def sync_excel_to_sql(file_path: str = "Work_Logger_Frontend.xlsx"):
             return
 
         df_filled = df.dropna(subset=["hours"])
+        
+        # Ensure hours is strictly numeric (prevents string/object comparison bugs)
+        df_filled["hours"] = pd.to_numeric(df_filled["hours"], errors="coerce")
+        df_filled = df_filled.dropna(subset=["hours"])
+
+        # Statistical Anomaly Detection Validation
+        # Flag and filter out extreme work-hour entries (> 12 hrs or negative hours)
+        anomaly_threshold = 12.0
+        anomalies = df_filled[(df_filled["hours"] > anomaly_threshold) | (df_filled["hours"] <0)]
+
+        if not anomalies.empty:
+            logger.warning(
+                f"Anomaly Detected! Found {len(anomalies)} row(s) with exteme work hours "
+                f"(> {anomaly_threshold} hours or negative). These entries will be filtered out."
+            )
+            for _, anom_row in anomalies.iterrows():
+                logger.warning(
+                    f" -> Employee ID: {anom_row.get('id', 'N/A')}, "
+                    f"Hours Logged: {anom_row['hours']}, Date: {anom_row.get('date', 'N/A')}"
+                )
+        # Filter to keep only valid entries within normal parameters (0 - 12hrs)
+        df_valid = df_filled[(df_filled["hours"] >= 0) & (df_filled["hours"] <= anomaly_threshold)]
 
         # Clear existing logs to prevent duplicates
         session.query(WorkLog).delete()
         logger.info("🗑️ Cleared existing WorkLog table for a fresh sync.")
 
-        for _, row in df_filled.iterrows():
+        # Iterate over the clean valid verified rows that are comitted to the db
+        for _, row in df_valid.iterrows():
             new_log = WorkLog(
                 employee_id=int(row["id"]),
                 hours=float(row["hours"]),
@@ -59,12 +82,15 @@ def sync_excel_to_sql(file_path: str = "Work_Logger_Frontend.xlsx"):
             timestamp=datetime.now(timezone.utc).isoformat(),
             file_path=file_path,
             status="Success",
-            rows_processed=len(df_filled)
+            rows_processed=len(df_valid)
         )
         session.add(success_audit)
 
         session.commit()
-        logger.info(f"🚀 Success! Synced {len(df_filled)} rows from '{file_path}' to SQL.")
+        logger.info(
+            f"🚀 Success! Synced {len(df_valid)} valid rows " 
+            f"(filtered {len(anomalies)} anomalies) from '{file_path}' to SQL."
+        )
 
     except Exception as e:
         # Add a catch-all for unexpected crashes
@@ -97,7 +123,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--file", "-f",
         type=str,
-        default="Work_Logger_Frontend.xslx",
+        default="Work_Logger_Frontend.xlsx",
         help="Path to the Excel frontend file (default: Work_Logger_Frontend.xlsx)"
     )
     args = parser.parse_args()

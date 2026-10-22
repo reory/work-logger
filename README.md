@@ -18,8 +18,8 @@ information in a relational database (SQL) and generates visual performance repo
 ---
 
 ## 📸 Screenshots
-![Excel Worksheet](screenshots/excel.png)
-![Data Visualisation](screenshots/work_report1.png)
+![Excel Worksheet](screenshots/excel%20table%20input.png)
+![Data Visualisation](screenshots/report1.png)
 
 ---
 <details>
@@ -160,7 +160,7 @@ work-logger/
 
 - [x] Audit Logging Table: Add an `audit_logs` tracking table in SQLite to record execution timestamps, status, and row counts for every sync run.
 
-- [ ] Statistical Anomaly Detection: Implement a Pandas validation rule to automatically flag extreme work-hour entries (e.g., shifts > 50 hours).
+- [x] Statistical Anomaly Detection: Implement a Pandas validation rule to automatically flag extreme work-hour entries (e.g., shifts > 12 hours).
 
 - [ ] Automated Unit Testing: Expand the `tests/` directory with `pytest` to validate data cleaning, header sanitization, and SQL insertion logic.
 
